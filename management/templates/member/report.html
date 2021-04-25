@@ -1,0 +1,57 @@
+{% extends "base.html" %} {% block content%}
+<style>
+    footer {
+        
+    }
+</style>
+<!-- Report the problem -->
+<div class="container bg-white p-5 contain">
+    <div class="d-flex justify-content-center">
+        <h1 class="mx-auto mb-4">แจ้งปัญหา</h1>
+    </div>
+
+    <form method="POST" action="{%url 'user_report'%}">
+        {%csrf_token%}
+
+        <!-- Notification -->
+        <!-- Notification -->
+        {% if messages %}
+        <!--  -->
+        {%for message in messages%}
+        <div class="noti">
+            <div class="alert alert-success text-center" role="alert">
+                <i class="far fa-check-circle"></i> ส่งสำเร็จเรียบร้อย
+            </div>
+        </div>
+        <!--  -->
+        {%endfor%}
+        <!--  -->
+        {%endif%}
+        <!-- / Notification -->
+
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="type">ประเภท</label>
+            </div>
+            <select name="u_select" class="custom-select" id="type">
+                    <option selected readonly disabled>กรุณาเลือกประเภทที่ต้องการแจ้ง</option>
+                    {% for report in report_typies%}
+                    <option value="{{report.type_name}}">{{report.type_name}}</option>
+                    {%endfor%}
+                </select>
+        </div>
+
+        <div class="form-group">
+            <label for="detail">รายละเอียด</label>
+            <!-- <textarea class="form-control" id="detail" rows="3"></textarea>  -->
+            {{form.report_desc}}
+        </div>
+
+        <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary w-100 mt-3">ยันยัน</button>
+        </div>
+    </form>
+</div>
+<!-- / Report the problem -->
+
+{% endblock content%}
